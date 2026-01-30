@@ -1,9 +1,11 @@
--Understanding about devops engineer is :
-1.devops person will be responsible for infra and as well troubleshooting .
-2.he will going to collaboarte with developers on day today activity .
+-Understanding about devops engineer is :                                                                                                                                  
+1.devops person will be responsible for infra and as well troubleshooting.
+2.he will going to collaboarte with developers on day today activity.
 3.he will going to responsible for new inovation as well 
 4.as well as deployent on day today basis.
 5.Hence forth the person who has more understanding about technical notions and troubleshooting also he has to make work redundent so automation he can work around , monitoring also work with cloud Platform like AWS azure GCP .
+
+
 
 -Understanding about Cloud Engineer is :
 1.cloud Engineer will be responsible for desiging , deployment and he will manage the application and infrastrcuture on cloud like AWS Azure GCP 
