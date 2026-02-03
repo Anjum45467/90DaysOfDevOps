@@ -141,3 +141,63 @@ what is init:
 -init is the fisrt process started by the kernal 
 it has PID 1 
 it starts system services
+used in old linux systems 
+what is systemd:
+-systemd is a modern replacemnet for init
+it is also PID 1 
+Faster and smarter 
+How init works (simple)
+-starts services one by one 
+-uses scripts 
+-if one service is slow ->whole boot is slow 
+-LIKE STANDING IN A SINGLE LINE QUEUE 
+
+How systemd works
+-stats services in parallel 
+-knows which service depends on which 
+-much faster boot 
+-LIKE MULTIPLE QUEUE AT ONCE 
+
+##what systemd does and why it matters?####
+-systemd is the fisrt process started by the kernal 
+it has PID 1 
+it controld everything that runs in the backgroud 
+it starts systemd services 
+network 
+ssh
+docker 
+web servers 
+manages services start stop restart 
+so systemd manages the services in linux 
+=starts 
+-stop
+=restart
+-enable---------services starts automatically after reboot 
+-disbale--------disble services at boot 
+-status 
+--------
+###what is PID , Daemon , services######
+process ID (PID)
+Every running process has a number 
+that number is called PID 
+PID helps os identify process 
+
+
+-Daemon 
+- a daemon is a backgroud process 
+- it runs without user interaction
+eg : sshd  , httpd 
+
+-services 
+A service is a managed daemon
+systemd controld services 
+
+--------------
+
+####commands#######
+Userfull process commands
+ps---show process
+top----live process view
+htop---betterthen top
+kill pid---kill process 
+
