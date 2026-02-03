@@ -1,4 +1,4 @@
-hort Notes: Kernel, Shell, User Space, init / systemd
+Short Notes: Kernel, Shell, User Space, init / systemd
 
 ---
 
