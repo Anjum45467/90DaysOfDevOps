@@ -90,7 +90,7 @@
 
 ----
 
-##Hardware 
+## Hardware 
 1. dmesg : kernal ring buffer message 
 2. cat /proc/cpuinfo : CPU information 
 3. cat /proc/meminfo : Meomery information 
@@ -122,7 +122,7 @@
 
 ---
 
-##i/o redirection  
+## i/o redirection  
 1. echo TEXT : Display text or variable 
 2. echo -n TEXT : omit trailing newline 
 3. cmd > file : Redirect output (overwrite)
@@ -156,7 +156,7 @@
 
 ---
 
-##system information 
+## system information 
 1. uname : show linux system information .
 2. uname -a : detailed system information 
 3. uname -r : kernal realse version .
