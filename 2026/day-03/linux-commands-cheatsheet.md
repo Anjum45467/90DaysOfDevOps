@@ -1,7 +1,7 @@
 
 ####Commands to be remember######
 
-## Navigateion and Files 
+## Navigation and Files 
 1. ls ---- listing the files 
 2. ls -l ----long listing 
 3. ls -a ------ listing all hidden files as well 
