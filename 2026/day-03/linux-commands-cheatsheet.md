@@ -19,6 +19,8 @@
 17.cat ---- view content of the file
 18.cat -b x ---- it will going to view and display the line numbers as well 
 
+-----
+
 ##View and Edit 
 19.wc x --- will display word count of x 
 20.head x ---- displays starting 10 lines 
@@ -28,6 +30,10 @@
 24.tail -n +1 file ----- it will display the lines from start with numbering 
 25.tail -f file ------ live monitoring of a file i
 26.less file-name ----- 
+
+
+----
+
 
 ##Search and find 
 1..Grep patt src = search for pattern in source
@@ -41,6 +47,8 @@
 9.locate name = find files/directory by name 
 10.sort X = Sort files alphabeticaly/numerically 
 
+----
+
 ##File Transfer 
 1.ssh user@host -- conect to host as user 
 2.ssh -p port user@host --- Connect using specific port 
@@ -49,6 +57,8 @@
 5.sftp -p port user@host ---- SFTP using specific port 
 6.rsync -a p1 p2 --- sync preserving attributes 
 7.rsync -avz host:p1 ---- sync remote --> local with compress 
+
+----
 
 ## disk usage 
 1.df --- Display free disk space 
@@ -62,6 +72,7 @@
 9.free -m : memory in MB 
 10.free -g : memory in GB 
 
+-----
 
 ##User Management 
 1.who : will display whi is logged in 
@@ -75,6 +86,9 @@
 9.userdel ab1 : delete account  ab1
 10.usermod -aG gp1 ab1 : add user to group gp1 
 
+
+----
+
 ##Hardware 
 1.dmesg : kernal ring buffer message 
 2.cat /proc/cpuinfo : CPU information 
@@ -85,6 +99,8 @@
 7.hdparm -i /dev/sda : Disk sda information 
 8.hdparm -tT /dev/sda : Read speed test on sda 
 9.badloacks -s /dev/sda : Test for unreadable blocks 
+
+----
 
 ## Process Management 
 1.cmd & : Run command in background 
@@ -103,6 +119,8 @@
 14.tcpdump -i eth0 : capture packets on eth0 
 15.watch df -h : periodic updates of df -h 
 
+---
+
 ##i/o redirection : 
 1.echo TEXT : Display text or variable 
 2.echo -n TEXT : omit trailing newline 
@@ -115,6 +133,8 @@
 9.cmd << delim : imput from stdin with delimeter
 10.cmd < file : read cmd input from file 
 11.cmd >> file : Append output to file 
+
+---
 
 ## Networking 
 1.ifconfig : shall all interfaces and ips 
@@ -133,6 +153,8 @@
 14.ufw status : check firewall setting 
 15.nmcli : manage network connectors 
 
+---
+
 ##system information 
 1.uname : show linux system information .
 2.uname -a : detailed system information 
@@ -142,4 +164,4 @@
 6.shutdown : shutdown the system 
 7.cat /etc/os-release : Linux distribution version 
 
-2.
+
