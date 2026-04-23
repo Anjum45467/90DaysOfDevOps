@@ -1,6 +1,7 @@
 
 ####Commands to be remember######
-##Navigateion and Files 
+
+## Navigateion and Files 
 1. ls ---- listing the files 
 2. ls -l ----long listing 
 3. ls -a ------ listing all hidden files as well 
@@ -22,7 +23,7 @@
 
 -----
 
-##View and Edit 
+## View and Edit 
 19. wc x --- will display word count of x 
 20. head x ---- displays starting 10 lines 
 21. head -n x ---- displays the starting lines with numbers 
@@ -36,7 +37,7 @@
 ----
 
 
-##Search and find 
+## Search and find 
 1. .Grep patt src = search for pattern in source
 2. grep -r patt src = Recursive search in directory 
 3. grep -v patt X = Lines Not matching pattern 
@@ -50,7 +51,7 @@
 
 ----
 
-##File Transfer 
+## File Transfer 
 1. ssh user@host -- conect to host as user 
 2. ssh -p port user@host --- Connect using specific port 
 3. scp -p port --- SCP using specific port 
@@ -75,7 +76,7 @@
 
 -----
 
-##User Management 
+## User Management 
 1. who : will display whi is logged in 
 2. w : users online and what they are doing 
 3. users : list current users 
