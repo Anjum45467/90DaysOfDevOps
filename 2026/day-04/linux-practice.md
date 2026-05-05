@@ -1,3 +1,10 @@
+##practice note using real commands and real-world expected output##
+
+1.ps -aux :
+o/p :
+USER        PID   %CPU %MEM      VSZ     RSS    TTY         STAT    START      TIME      COMMAND
+anjum     284466   0.0   0.0    268644   3996   pts/0        R+     16:52      0:00        ps -aux
+
 Explanation:
 
 
