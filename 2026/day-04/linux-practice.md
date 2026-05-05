@@ -1,206 +1,192 @@
-##practice note using real commands and real-world expected output##
+## Practice Notes (Linux Commands with Real Output)
 
-1.ps -aux :
-o/p :
-USER        PID   %CPU %MEM      VSZ     RSS    TTY         STAT    START      TIME      COMMAND
-anjum     284466   0.0   0.0    268644   3996   pts/0        R+     16:52      0:00        ps -aux
+---
 
-Explanation:
+### 1. ps -aux
 
+```bash
+ps -aux
+```
 
-USER → Who started this process
+**Output:**
+```text
+USER        PID   %CPU %MEM      VSZ     RSS    TTY   STAT START   TIME COMMAND
+anjum     284466  0.0  0.0   268644   3996   pts/0   R+   16:52   0:00 ps -aux
+```
 
+**Explanation:**
 
-PID → Process ID (unique)
+- **USER** → Who started this process  
+- **PID** → Process ID (unique)  
+- **%CPU** → CPU usage  
+- **%MEM** → RAM usage  
+- **VSZ** → Total memory allocated  
+- **RSS** → Actual RAM used  
+- **TTY** → Terminal attached  
+- **STAT** → Process state  
 
+👉 This is very important — tells what the process is doing  
 
-%CPU → CPU usage
+**Common Values:**
+- S → Sleeping  
+- R → Running  
+- D → Waiting (I/O)  
+- Z → Zombie ❌  
+- Ss → Sleeping + session leader  
+- I< → Idle kernel thread  
 
+- **START** → When process started  
+- **TIME** → CPU time used  
+- **COMMAND** → What started the process  
 
-%MEM → RAM usage
+---
 
+### 2. TOP Command
 
-VSZ → Total memory allocated
-
-
-RSS → Actual RAM used
-
-
-TTY → Terminal attached
-
-
-STAT → Process state
-
-
-👉 This is very important — tells what the process is doing
-Common Values:
-
-
-S → Sleeping
-
-
-R → Running
-
-
-D → Waiting (I/O)
-
-
-Z → Zombie ❌
-
-
-Ss → Sleeping + session leader
-
-
-I< → Idle kernel thread
-
-
-Ss → systemd running normally
-
-
-I< → kernel background tasks
-
-
-START → When process started
-
-
-TIME → CPU time used
-
-
-COMMAND → What started the process
-
-
-
-📊 2. TOP Command
+```bash
 top
-Output:
-top - 17:46:41 up 3 days, 12:44, 1 user, load average: 0.01, 0.02, 0.05Tasks: 272 total, 1 running, 271 sleeping, 0 stopped, 0 zombie%Cpu(s): 0.7 us, 0.4 sy, 0.0 ni, 98.8 idMiB Mem : 31887 total, 493 free, 16837 used, 14557 buff/cacheMiB Swap: 16136 total, 16136 free, 0 used
-Observations:
+```
 
+**Output:**
+```text
+top - 17:46:41 up 3 days, 12:44, 1 user, load average: 0.01, 0.02, 0.05
+Tasks: 272 total, 1 running, 271 sleeping, 0 stopped, 0 zombie
+%Cpu(s): 0.7 us, 0.4 sy, 0.0 ni, 98.8 id
+MiB Mem : 31887 total, 493 free, 16837 used, 14557 buff/cache
+MiB Swap: 16136 total, 16136 free, 0 used
+```
 
-Server running since 3+ days → stable
+**Observations:**
+- Server running since 3+ days → stable  
+- Load average low → healthy system  
+- No zombie processes → GOOD  
 
+**CPU:**
+- User CPU → 0.7%  
+- System CPU → 0.4%  
+- Idle → 98%  
 
-Load average low → healthy system
+**Memory:**
+- Used → 16 GB  
+- Cache → 14 GB (reusable)  
+- Free → low (normal in Linux)  
 
+👉 Linux uses memory cache to improve performance  
 
-No zombie processes → GOOD
+**Swap:**
+- Not used → PERFECT  
 
+---
 
-CPU:
+### Process Table Example
 
+```text
+PID   USER     PR  NI   VIRT     RES    SHR S  %CPU %MEM   TIME+ COMMAND
+981   jenkins  20   0   13.1g  472972  68448 S   0.3  1.4  7:40.47 java
+```
 
-User CPU → 0.3%
+| Column  | Meaning            |
+|--------|--------------------|
+| PID    | Process ID         |
+| USER   | Owner              |
+| PR     | Priority           |
+| NI     | Nice value         |
+| VIRT   | Virtual memory     |
+| %CPU   | CPU usage          |
+| %MEM   | RAM usage          |
+| TIME+  | CPU time           |
+| COMMAND| Application        |
 
+---
 
-System CPU → 0.4%
+### ☕ Find Java Processes
 
-
-Idle → 99%
-
-
-Memory:
-
-
-Used → 16 GB
-
-
-Cache → 14 GB (reusable)
-
-
-Free → low (normal in Linux)
-
-
-👉 Linux uses memory cache to improve performance
-Swap:
-
-
-Not used → PERFECT
-
-
-
-Process Table Example
-PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND981 jenkins 20 0 13.1g 472972 68448 S 0.3 1.4 7:40.47 java
-ColumnMeaningPIDProcess IDUSEROwnerPRPriorityNINice valueVIRTVirtual memory%CPUCPU usage%MEMRAM usageTIME+CPU timeCOMMANDApplication
-
-☕ Find Java Processes
+```bash
 pgrep -fl java
-Output:
+```
 
+---
 
-Multiple Java processes found
+### 🌳 Process Tree
 
-
-Indicates multiple Java-based services
-
-
-
-🌳 Process Tree
+```bash
 pstree -p
+```
 
+---
 
-Shows parent-child relationship
+### 🌐 Networking Commands
 
-
-
-🌐 Networking Commands
-Check Open Ports
+```bash
 ss -tulnp
-Ping Test
 ping -c 4 google.com
-DNS Lookup
 nslookup google.com
-Trace Route
 traceroute google.com
-HTTP Check
 curl -I https://google.com
-IP Address
 ip a
+```
 
-⚙️ Systemd Service Commands
-1. Nginx Service
-sudo apt install nginx -ysudo systemctl start nginxsystemctl status nginx
-Output:
-nginx.service - The nginx HTTP and reverse proxy serverLoaded: loaded (/usr/lib/systemd/system/nginx.service; disabled)Active: active (running)
+---
 
-2. List All Services
+### ⚙️ Systemd Service Commands
+
+#### Nginx Service
+```bash
+sudo apt install nginx -y
+sudo systemctl start nginx
+systemctl status nginx
+```
+
+**Output:**
+```text
+nginx.service - The nginx HTTP and reverse proxy server
+Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled)
+Active: active (running)
+```
+
+---
+
+#### List All Services
+```bash
 systemctl list-units --type=service
-👉 Shows all running services
+```
 
-3. SSH Service
+---
+
+#### SSH Service
+```bash
 systemctl status sshd
-👉 Used for remote login
+```
 
-📜 Log Commands
+---
+
+### 📜 Log Commands
+
+```bash
 journalctl
-journalctl -u nginx -fjournalctl -u sshd
-👉 View system logs
+journalctl -u nginx -f
+journalctl -u sshd
+```
 
-Tail Logs
+---
+
+### Tail Logs
+
+```bash
 tail -n 50 <logfile>
-👉 Shows last 50 lines
+```
 
-🛠️ Service Inspection (crond)
+---
+
+### 🛠️ Service Inspection (crond)
+
+```bash
 systemctl status crond
-Observations:
+```
 
+---
 
-Service is running
+### 🔁 Difference Between start and enable
 
-
-Running since long time → stable
-
-
-Executes scheduled jobs
-
-
-
-🔁 Difference Between start and enable
-
-
-start → Starts service immediately
-
-
-enable → Starts service on boot
-
-
----## 💯 Now:- Copy → paste into your file  - Save → commit → push  - It will look **perfect on GitHub** ✅  ---If you want next step 🚀  I can help you:- Fix your **README conflict**- Make your repo look like a **DevOps portfolio project**
+- **start** → Starts service immediately  
+- **enable** → Starts service on boot  
