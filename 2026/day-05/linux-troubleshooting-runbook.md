@@ -5,6 +5,13 @@
 ```bash
 Linux pu2vlinfrat56889.dsone.3ds.com 4.18.0-553.107.1.el8_10.x86_64 #1 SMP Tue Feb 17 05:52:05 EST 2026 x86_64 x86_64 x86_64 GNU/Linux
 ```
+#### observation:
+- System is running Red Hat Enterprise Linux 8 kernel.
+- Architecture is x86_64.
+- Kernel version is 4.18 which is stable for enterprise workloads.
+
+---------
+
 ### 2.cat /etc/os-relese
 ```bash
 NAME="Red Hat Enterprise Linux"
