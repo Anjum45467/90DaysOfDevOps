@@ -94,3 +94,62 @@ Swap:          15Gi       5.1Gi        10Gi
 | `available`  | 1.6 GB | Memory realistically available for new applications without heavy swapping |
 
 -----------------------------
+### 7. ps aux --sort=-%cpu | head -3
+```bash
+USER       PID %CPU %MEM COMMAND
+webapp  929815  4.0 30.3 java
+```
+#### observation:
+- Java web application consuming highest CPU resources.
+- Memory usage is high but expected for enterprise Java applications.
+
+-------------------
+
+### 8.df -h 
+```bash
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs         16G     0   16G   0% /dev
+tmpfs            16G  888K   16G   1% /dev/shm
+tmpfs            16G  1.2M   16G   1% /run
+tmpfs            16G     0   16G   0% /sys/fs/cgroup
+/dev/sda4       482G  181G  301G  38% /
+/dev/sda2       2.0G  427M  1.6G  21% /boot
+/dev/sda1       511M  5.9M  506M   2% /boot/efi
+tmpfs           3.2G   16K  3.2G   1% /run/user/42
+tmpfs           3.2G  8.0K  3.2G   1% /run/user/47937
+```
+#### observation:
+| Filesystem  | Size | Used | Available | Use% | Mounted On        | Meaning                                                                                |
+| ----------- | ---- | ---- | --------- | ---- | ----------------- | -------------------------------------------------------------------------------------- |
+| `devtmpfs`  | 16G  | 0    | 16G       | 0%   | `/dev`            | Virtual filesystem managed by Linux kernel for device files like disks, USB, terminals |
+| `tmpfs`     | 16G  | 888K | 16G       | 1%   | `/dev/shm`        | Temporary RAM-based shared memory filesystem                                           |
+| `tmpfs`     | 16G  | 1.2M | 16G       | 1%   | `/run`            | Stores runtime process data in memory                                                  |
+| `tmpfs`     | 16G  | 0    | 16G       | 0%   | `/sys/fs/cgroup`  | Used for Linux control groups (resource management for processes/containers)           |
+| `/dev/sda4` | 482G | 181G | 301G      | 38%  | `/`               | Main root filesystem where OS, apps, logs, and user data exist                         |
+| `/dev/sda2` | 2.0G | 427M | 1.6G      | 21%  | `/boot`           | Stores Linux kernel and bootloader files                                               |
+| `/dev/sda1` | 511M | 5.9M | 506M      | 2%   | `/boot/efi`       | EFI partition used by UEFI firmware during boot                                        |
+| `tmpfs`     | 3.2G | 16K  | 3.2G      | 1%   | `/run/user/42`    | Runtime temp storage for user session (UID 42)                                         |
+| `tmpfs`     | 3.2G | 8.0K | 3.2G      | 1%   | `/run/user/47937` | Runtime temp storage for logged-in user session                                        |
+-------------------
+### 9.du -sh /var/log
+```bash
+2.1G    /var/log
+```
+#### observation: 
+- Log directory size checked successfully
+
+-----------
+### 10.ss -tulpn
+```bash
+Netid  State    Recv-Q  Send-Q  Local Address:Port  Peer Address:Port  Process
+tcp    LISTEN   0       128     0.0.0.0:22           0.0.0.0:*          sshd
+tcp    LISTEN   0       511     0.0.0.0:80           0.0.0.0:*          nginx
+tcp    LISTEN   0       511     0.0.0.0:443          0.0.0.0:*          nginx
+udp    UNCONN   0       0       0.0.0.0:68           0.0.0.0:*          dhclient
+```
+### observation:
+-ss -tulpn is asking your computer: "Which doors are open and who is standing behind them?"
+-state
+ LISTEN   = door is open, someone is waiting inside
+ UNCONN   = door is open but nobody's really waiting (UDP thing)
+ ESTAB    = a visitor is ALREADY inside talking
