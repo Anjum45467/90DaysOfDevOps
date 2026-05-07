@@ -150,6 +150,11 @@ udp    UNCONN   0       0       0.0.0.0:68           0.0.0.0:*          dhclient
 ### observation:
 - ss -tulpn is asking your computer: "Which doors are open and who is standing behind them?"
 - state
+
  - LISTEN   = door is open, someone is waiting inside
  - UNCONN   = door is open but nobody's really waiting (UDP thing)
  - ESTAB    = a visitor is ALREADY inside talking
+- Local Address:Port — Which door, on which building
+
+ -- 0.0.0.0:3306  ← your database is open to THE ENTIRE INTERNET 😱
+ -- 127.0.0.1:3306 ← your database is only open to your own machine ✅
