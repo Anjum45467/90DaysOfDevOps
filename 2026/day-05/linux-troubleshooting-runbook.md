@@ -148,8 +148,8 @@ tcp    LISTEN   0       511     0.0.0.0:443          0.0.0.0:*          nginx
 udp    UNCONN   0       0       0.0.0.0:68           0.0.0.0:*          dhclient
 ```
 ### observation:
--ss -tulpn is asking your computer: "Which doors are open and who is standing behind them?"
--state
- LISTEN   = door is open, someone is waiting inside
- UNCONN   = door is open but nobody's really waiting (UDP thing)
- ESTAB    = a visitor is ALREADY inside talking
+- ss -tulpn is asking your computer: "Which doors are open and who is standing behind them?"
+- state
+ - LISTEN   = door is open, someone is waiting inside
+ - UNCONN   = door is open but nobody's really waiting (UDP thing)
+ - ESTAB    = a visitor is ALREADY inside talking
