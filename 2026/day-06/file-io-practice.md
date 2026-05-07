@@ -107,7 +107,7 @@ tail -n 2 notes.txt
 
 ---
 
-# Final File Content
+# summary
 
 ```text
 Linux troubleshooting practice started.
