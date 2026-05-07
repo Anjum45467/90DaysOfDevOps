@@ -50,3 +50,47 @@ drwxrwxr-x 13 anjum anjum  191 Apr  8 17:59 R2026x
 ```
 #### observation:
 - Filesystem is writable. /home directory is healthy. File permissions look correct (644). No space or permission errors.
+
+----------------
+### 4.ps -o pid,pcpu,pmem,comm -p 1
+```bash
+PID %CPU %MEM COMMAND
+      1  0.2  0.0 systemd
+```
+#### observation:
+- PID 1 belongs to the `systemd` process which is the init process of the Linux system.
+- CPU and memory utilization by systemd is minimal and within normal limits.
+- No abnormal resource consumption observed from the core system service.
+
+### 5.ps aux --sort=-%cpu | head -10
+
+#### observation:
+- Find the highest CPU consuming process 
+
+### 6.ps aux --sort=-%mem | head -10
+
+#### observation: 
+- Find the highest RAM consuming process 
+
+### 7.ps -p 929815 -o pid,ppid,%cpu,%mem,cmd
+
+#### observation: 
+-Inspect one process deeply PPID = parent process ID
+
+### 8.free -h :
+```bash 
+total        used        free      shared  buff/cache   available
+Mem:           31Gi        28Gi       376Mi       3.0Mi       1.9Gi       1.6Gi
+Swap:          15Gi       5.1Gi        10Gi
+```
+#### Observation:
+| Column       | Value  | What it means                                                              |
+| ------------ | ------ | -------------------------------------------------------------------------- |
+| `total`      | 31 GB  | Physical RAM installed on the machine                                      |
+| `used`       | 28 GB  | RAM actively used by running processes/services                            |
+| `free`       | 376 MB | RAM that is completely unused                                              |
+| `shared`     | 3 MB   | Memory shared between processes (commonly tmpfs/shared memory)             |
+| `buff/cache` | 1.9 GB | RAM used by Linux kernel for file cache and disk buffers                   |
+| `available`  | 1.6 GB | Memory realistically available for new applications without heavy swapping |
+
+-----------------------------
