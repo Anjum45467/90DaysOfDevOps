@@ -125,30 +125,93 @@ When a service fails, i will investigate in this order:
 - 1.systemctl status myapp : Is it active, failed, or inactive .
 ```bash
 Output to look for:
-
 Active: failed (Result: exit-code)   ← something crashed
 Loaded: ...myapp.service; disabled   ← not enabled on boot
 ```
 - 2 — Read the logs : journalctl -u myapp -n 50
 ```bash
 What it tells :
-
 The actual error message — why did it fail?
 In our example: Cannot find module '/opt/myapp/server.js' → file is missing!
 ```
 -  3 — Check if enabled on boot : systemctl is-enabled myapp
 ```bash
 What it tells :
-
 enabled → will auto-start on reboot 
 disabled → will NOT start on reboot 
 ```
 - 4 — Confirm it's not running : ss -tlnp | grep 3000
 ```bash
 What it tells you:
-
 Is the app actually listening on its port?
 No output = app is definitely not running
 ss = socket status (modern replacement for netstat)
 ```
+2)Scenario 2: High CPU Usage
+```bash
+Your manager reports that the application server is slow.
+You SSH into the server. What commands would you run to identify
+which process is using high CPU?
 ```
+My Solution (Step by step):
+
+- 1 — top → Live view of all processes
+```bash
+top -bn1 | head -20
+```bash
+| Field              | What it means                                 |
+| ------------------ | --------------------------------------------- |
+| `%Cpu(s): 94.3 us` | 94% CPU in use — server is struggling         |
+| `id: 1.5`          | only 1.5% idle — nearly zero breathing room   |
+| `%CPU column`      | sort by this — highest number is your culprit |
+| `COMMAND column`   | tells you exactly which app is eating CPU     |
+```
+-  2 — ps aux → Snapshot sorted by CPU
+```bash 
+ps aux --sort=-%cpu | head -10
+Why use this over top?
+- top is live/interactive — hard to copy output
+- ps aux gives a clean snapshot — easy to share with your team or paste in tickets
+| Flag           | Meaning                       |
+| -------------- | ----------------------------- |
+| `a`            | show processes from all users |
+| `u`            | show user/owner column        |
+| `x`            | include background processes  |
+| `--sort=-%cpu` | sort by CPU, highest first    |
+| `head -10`     | show only top 10              |
+```
+- 3 — uptime → Is this a new problem or ongoing?
+```bash
+uptime
+o/p: 
+load average: 3.85, 3.90, 3.78
+               ↑      ↑     ↑
+	       1min   5min  15min
+
+- The golden rule:
+Load average should be LESS than your CPU count
+
+1 CPU  → load average above 1.0 = problem
+4 CPUs → load average above 4.0 = problem
+
+All three numbers high → problem has been going on for 15+ minutes
+Only 1min high → just started, maybe a spike
+```
+- 4 — lsof -p <PID> → What is that process actually doing?
+```bash
+lsof -p 9821
+Once you find the bad PID from top or ps, use lsof to see:
+
+- Which files it has open
+- How many network connections it has
+- What ports it's using
+
+In our example: 890 open connections on port 3000 — app is getting hammered with traffic, causing high CPU.
+```
+```bash
+FIX:
+systemctl restart myapp    → restart service
+kill -9 <PID>              → force kill if frozen
+journalctl -u myapp -n 100 → check why it happened
+```
+
