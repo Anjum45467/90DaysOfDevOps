@@ -7,13 +7,13 @@
 - `/etc` - Configuration files eg: /etc/hosts , /etc/passwd → list of all users on the system (not passwords, those are in /etc/shadow),
            /etc/apt → package manager config , /etc/cron.d → scheduled tasks (cron jobs)
 - `/var/log` - This is where every service writes its logs.
-             - dpkg.log (576KB) — every package installed/removed, with timestamps.You can see ca-certificates-java was installed on Apr             - bootstrap.log — system startup log
-	     - btmp / wtmp — login/logout history, failed login attempts 
-	     /var/log/nginx/access.log     → every web request
-	     /var/log/nginx/error.log      → nginx errors
-	     /var/log/syslog               → general system events
-	     /var/log/auth.log             → SSH logins, sudo usage
-	     /var/log/docker/              → container logs
+- dpkg.log (576KB) — every package installed/removed, with timestamps.You can see ca-certificates-java was installed on Apr             - bootstrap.log — system startup log
+- btmp / wtmp — login/logout history, failed login attempts 
+- /var/log/nginx/access.log     → every web request
+- /var/log/nginx/error.log      → nginx errors
+- /var/log/syslog               → general system events
+- /var/log/auth.log             → SSH logins, sudo usage
+- /var/log/docker/              → container logs
 - `/tmp` - Temporary files
          - This directory is for files that don't need to survive a reboot. Linux automatically cleans it on restart.
 	 - What you just saw:
