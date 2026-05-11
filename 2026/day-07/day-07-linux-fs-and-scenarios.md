@@ -38,8 +38,7 @@
 - `/bin and /usr/bin`  — /bin is just a symlink (shortcut) pointing to /usr/bin. So on modern Ubuntu, they are literally identical. When                         you type ls, Linux looks in /bin which redirects to /usr/bin/ls.
 - `/opt`  —   stands for optional. It's where software goes when it is not installed through the system's package manager (apt/yum).
 
-          - Think of it like this:
-
+          
           - apt install git    →  goes to /usr/bin/git     (system managed)
           - Manual install     →  goes to /opt/git/        (you manage it)
 
@@ -53,7 +52,32 @@
 ```
 -ls -la /root  —
 ```bash
-. bashrc — root user's terminal settings and aliases
-. ssh — root's SSH keys for connecting to servers
+- bashrc — root user's terminal settings and aliases
+- ssh — root's SSH keys for connecting to servers
 - "I would use this when doing system-level administration tasks that require root access."
+```
+- /var/log  —
+```bash
+- dpkg.log (576KB) — full history of packages installed/removed
+- bootstrap.log (60KB) — system startup log
+- "I would use this when an app crashes or a deployment fails and I need to find the error by checking logs."
+```
+- ls -lh /tmp  — 
+```bash
+- anjum_test.txt — the file we created earlier, still there!
+- node-compile-cache — temp cache created by Node.js
+- "I would use this when I need to download and test a script quickly without cluttering my home directory, knowing it will auto-clean on reboot."
+```
+- ls -l /bin        # shows: /bin -> usr/bin (symlink!)
+- ls -l /usr/bin    # shows 1067 commands like ls, git, curl, python3
+```bash  
+/bin is a symlink → usr/bin
+/usr/bin has actual binaries like git, curl, python3
+"I would use this when I need to find where a command is installed using which, or when writing scripts where I need the full path of a binary."
+```
+- ls -l /opt  —
+```bash
+- google/chrome — Google Chrome installed manually
+- pw-browsers/chromium-1194 — Chromium installed by Playwright testing tool
+- " would use this when manually installing tools like Jenkins, Terraform, or vendor software that isn't available through apt."
 ```
