@@ -42,4 +42,13 @@
 
           - apt install git    →  goes to /usr/bin/git     (system managed)
           - Manual install     →  goes to /opt/git/        (you manage it)
-- 
+
+
+#### output of each directory : 
+- ls -l /home :
+
+- claude — home folder for user claude
+
+- ubuntu — home folder for user ubuntu
+
+-"I would use this when setting up a new user on a server or accessing another user's files and SSH keys."
