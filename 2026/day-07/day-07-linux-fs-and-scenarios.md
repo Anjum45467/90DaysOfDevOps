@@ -277,3 +277,43 @@ KEY RULE:
 systemd services → logs live in journald → use journalctl
 file-based apps  → logs live in /var/log → use tail/cat/grep
 ```
+Scenario 4: File Permissions Issue
+```bash
+A script at /home/user/backup.sh is not executing.
+When you run it: ./backup.sh
+You get: "Permission denied"
+
+What commands would you use to fix this?
+```
+My Solution (Step by step):
+
+-  1 — Check current permissions : ls -l /home/user/backup.sh
+```bash
+-rw-r--r-- 1 root root 63 May 11 backup.sh
+How to read -rw-r--r--:
+- rw- r-- r--
+│  │   │   │
+│  │   │   └── Others : r-- = read only
+│  │   └─────── Group  : r-- = read only
+│  └─────────── Owner  : rw- = read + write
+└────────────── file type: - = regular file, d = directory
+No x anywhere = nobody can execute it = Permission denied
+```
+- 2 — Fix it with chmod : chmod +x /home/user/backup.sh
+```bash
+| Style    | Command          | Meaning                    |
+| -------- | ---------------- | -------------------------- |
+| Symbolic | `chmod +x file`  | add execute for everyone   |
+| Symbolic | `chmod u+x file` | add execute for owner only |
+| Numeric  | `chmod 755 file` | `rwxr-xr-x`                |
+| Numeric  | `chmod 644 file` | `rw-r--r--`                |
+```
+- 3 — Verify it worked : ls -l /home/user/backup.sh
+```bash
+-rwxr-xr-x 1 root root 63 May 11 backup.sh
+Now you can see x in all three groups — owner, group, others can all execute it 
+```
+- Run it!
+- ./backup.sh
+- Backing up files...
+- Backup complete!
