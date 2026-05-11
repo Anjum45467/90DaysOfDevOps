@@ -81,3 +81,11 @@
 - pw-browsers/chromium-1194 — Chromium installed by Playwright testing tool
 - " would use this when manually installing tools like Jenkins, Terraform, or vendor software that isn't available through apt."
 ```
+--------------------------------------------
+### Part 2: Scenario-Based Practice
+ 
+#### Understanding How to Approach Scenarios :
+##### Check if a service is running:
+- 1)How do you check if the 'nginx' service is running?
+
+- Ans)systemctl status nginx 
