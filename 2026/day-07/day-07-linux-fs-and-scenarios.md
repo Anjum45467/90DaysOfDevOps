@@ -35,4 +35,11 @@
 	 - It means: everyone can write files here, but you can only delete your own files
 	 - So one user can't delete another user's temp files
 - `proc, sys` — virtual directories, they don't exist on disk, Linux creates them in memory
- 
+- `/bin and /usr/bin`  — /bin is just a symlink (shortcut) pointing to /usr/bin. So on modern Ubuntu, they are literally identical. When                         you type ls, Linux looks in /bin which redirects to /usr/bin/ls.
+- `/opt`  —   stands for optional. It's where software goes when it is not installed through the system's package manager (apt/yum).
+
+          - Think of it like this:
+
+          - apt install git    →  goes to /usr/bin/git     (system managed)
+          - Manual install     →  goes to /opt/git/        (you manage it)
+- 
