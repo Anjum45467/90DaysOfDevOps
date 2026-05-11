@@ -214,4 +214,66 @@ systemctl restart myapp    → restart service
 kill -9 <PID>              → force kill if frozen
 journalctl -u myapp -n 100 → check why it happened
 ```
+scenario 3: Finding Service Logs
+```bash
+A developer asks: "Where are the logs for the 'docker' service?"
+The service is managed by systemd.
+What commands would you use?
+```
+My Solution (Step by step):
 
+- 1 — Check status first : systemctl status docker
+```bash
+| What you see               | What it means                                  |
+| -------------------------- | ---------------------------------------------- |
+| `Active: active (running)` | service is fine, check logs for app errors     |
+| `Active: failed`           | service crashed — logs will show why           |
+| `Loaded: disabled`         | not enabled on boot — won’t survive reboot     |
+| `Last 5 log lines`         | quick preview — often enough to spot the issue |
+```
+- 2 — Read last N lines of logs : journalctl -u docker -n 50
+```bash
+| Flag         | Meaning                                        |
+| ------------ | ---------------------------------------------- |
+| `-u docker`  | only show logs for docker service              |
+| `-n 50`      | last 50 lines — change to 100 or 200 if needed |
+| `--no-pager` | print directly, don't open scroll view         |
+| `-b`         | only logs since last boot                      |
+```
+- 3 — Follow logs in real time : journalctl -u docker -f
+```bash
+Use this when: Developer says "the error happens when I do X" — you run this, they trigger the action, you watch the error appear live. Press Ctrl+C to stop.
+
+Exactly like tail -f /var/log/something.log but for systemd services.
+```
+- 4 — Show ONLY errors : journalctl -u docker -p err -n 20
+```bash 
+Use this when logs are massive and you just want errors fast.
+Priority levels from worst to best:
+0 = emerg    → system is unusable
+1 = alert    → action must be taken NOW
+2 = crit     → critical condition
+3 = err      → error condition   ← -p err shows this and above
+4 = warning  → warning
+5 = notice   → normal but significant
+6 = info     → informational
+7 = debug    → debug messages
+```
+```bash
+SCENARIO: Finding Service Logs
+
+COMMANDS IN ORDER:
+1. systemctl status docker          → quick health check + last 5 lines
+2. journalctl -u docker -n 50       → read last 50 log lines
+3. journalctl -u docker -f          → follow live (Ctrl+C to stop)
+4. journalctl -u docker -p err -n 20 → show only errors
+
+USEFUL EXTRAS:
+journalctl -u docker --since "1 hour ago"   → time filter
+journalctl -u docker -b                     → since last boot
+journalctl --disk-usage                     → how much space logs use
+
+KEY RULE:
+systemd services → logs live in journald → use journalctl
+file-based apps  → logs live in /var/log → use tail/cat/grep
+```
