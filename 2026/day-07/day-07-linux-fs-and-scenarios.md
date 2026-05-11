@@ -86,6 +86,11 @@
  
 #### Understanding How to Approach Scenarios :
 ##### Check if a service is running:
-- 1)How do you check if the 'nginx' service is running?
+###### 1)How do you check if the 'nginx' service is running?
+####### My Solution (Step by step):
 
+Step 1: Check service status
+```bash
+systemctl status nginx
+```
 - Ans)systemctl status nginx 
