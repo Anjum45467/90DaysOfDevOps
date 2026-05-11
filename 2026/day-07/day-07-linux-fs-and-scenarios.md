@@ -95,4 +95,60 @@ Step 1: Check service status
 ```bash
 systemctl status nginx
 ```
-- Ans)systemctl status nginx 
+Why this command? It shows if the service is active, failed, or stopped.
+
+Step 2: If service is not found, list all services
+```bash
+systemctl list-units --type=service
+```
+Why this command? To see what services exist on the system
+
+Step 3: Check if service is enabled on boot
+```bash
+systemctl is-enabled nginx
+```
+Why this command? To know if it will start automatically after reboot
+
+What I learned: Always check status first, then investigate based on what you see.
+
+### practice:
+Scenario 1: Service Not Starting
+```bash
+A web application service called 'myapp' failed to start after a server reboot.
+What commands would you run to diagnose the issue?
+Write at least 4 commands in order.
+```
+When a service fails, i will investigate in this order:
+
+- Status → Logs → Config → Fix
+- commands: 
+- 1.systemctl status myapp : Is it active, failed, or inactive .
+```bash
+Output to look for:
+
+Active: failed (Result: exit-code)   ← something crashed
+Loaded: ...myapp.service; disabled   ← not enabled on boot
+```
+- 2 — Read the logs : journalctl -u myapp -n 50
+```bash
+What it tells :
+
+The actual error message — why did it fail?
+In our example: Cannot find module '/opt/myapp/server.js' → file is missing!
+```
+-  3 — Check if enabled on boot : systemctl is-enabled myapp
+```bash
+What it tells :
+
+enabled → will auto-start on reboot 
+disabled → will NOT start on reboot 
+```
+- 4 — Confirm it's not running : ss -tlnp | grep 3000
+```bash
+What it tells you:
+
+Is the app actually listening on its port?
+No output = app is definitely not running
+ss = socket status (modern replacement for netstat)
+```
+```
