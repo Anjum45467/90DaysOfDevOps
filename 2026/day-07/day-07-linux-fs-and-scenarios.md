@@ -47,8 +47,13 @@
 #### output of each directory : 
 - ls -l /home  — 
 ```bash
-            - claude — home folder for user claude
-            - ubuntu — home folder for user ubuntu
-
--"I would use this when setting up a new user on a server or accessing another user's files and SSH keys."
+- claude — home folder for user claude
+- ubuntu — home folder for user ubuntu
+- "I would use this when setting up a new user on a server or accessing another user's files and SSH keys."
+```
+-ls -la /root  —
+```bash
+. bashrc — root user's terminal settings and aliases
+. ssh — root's SSH keys for connecting to servers
+- "I would use this when doing system-level administration tasks that require root access."
 ```
