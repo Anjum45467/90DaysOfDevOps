@@ -45,10 +45,10 @@
 
 
 #### output of each directory : 
-- ls -l /home :
-
-- claude — home folder for user claude
-
-- ubuntu — home folder for user ubuntu
+- ls -l /home  — 
+```bash
+            - claude — home folder for user claude
+            - ubuntu — home folder for user ubuntu
 
 -"I would use this when setting up a new user on a server or accessing another user's files and SSH keys."
+```
