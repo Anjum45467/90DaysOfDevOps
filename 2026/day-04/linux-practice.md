@@ -118,6 +118,12 @@ pstree -p
 ### 🌐 Networking Commands
 
 ```bash
+1.Check hostname resolution : getent hosts db.minutuscloud.com
+2.Ping server (ICMP connectivity) : ping -c 4 10.0.7.75
+3. Check if port is reachable (MOST IMPORTANT) : nc -zv 10.0.7.75 1433 oR nc -zv 10.0.7.75 3389
+4. Alternative using telnet : telnet 10.0.7.75 3389
+5. Trace route to server : traceroute 10.0.7.75
+6.Continuous connectivity monitoring : watch -n 2 "nc -zv 10.0.7.75 1433"
 ss -tulnp
 ping -c 4 google.com
 nslookup google.com
