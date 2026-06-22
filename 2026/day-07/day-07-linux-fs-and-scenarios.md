@@ -335,11 +335,11 @@ systemctl status jenkins
 ```
 Active: active (running) since Mon 2026-06-15 05:48:30 IST
 ```
-Service healthy. Not the issue.
+Service healthy. Not the issue.# ✅ Haan, chal rahi hai
 
 **Step 2 — Check if Jenkins is listening on correct address**
 ```bash
-ss -tlnp | grep 8080
+ss -tlnp | grep 8080 # ✅ Haan, sahi jagah sun rahi hai
 ```
 ```
 LISTEN 0  50  *:8080  *:*
@@ -348,7 +348,7 @@ Listening on all interfaces. Not the issue.
 
 **Step 3 — Check firewall**
 ```bash
-firewall-cmd --list-all
+firewall-cmd --list-all # ❌ Nahi! ports: (empty) — 8080 allowed nahi tha
 ```
 ```
 ports:        ← empty
@@ -358,7 +358,7 @@ services: cockpit dhcpv6-client http https ssh
 
 ### Resolution
 ```bash
-firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --permanent --add-port=8080/tcp  Darwaaza khola
 firewall-cmd --reload
 firewall-cmd --list-ports  # verify: 8080/tcp
 ```
