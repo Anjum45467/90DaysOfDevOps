@@ -317,5 +317,55 @@ Now you can see x in all three groups — owner, group, others can all execute i
 - ./backup.sh
 - Backing up files...
 - Backup complete!
+---
+## Scenario 5 — Jenkins Unreachable: ERR_CONNECTION_TIMED_OUT (Firewall Issue)
+### Problem Statement
+Jenkins was inaccessible via browser at `http://10.89.195.236:8080`.  
+Browser returned `ERR_CONNECTION_TIMED_OUT` — page never loaded.
+### Environment
+- OS: RHEL/CentOS (systemd-based)
+- Jenkins: active and running
+- Access attempted from: browser on same network
+  ### Investigation
 
-Scenario 4: File Permissions Issue
+**Step 1 — Check Jenkins service**
+```bash
+systemctl status jenkins
+```
+```
+Active: active (running) since Mon 2026-06-15 05:48:30 IST
+```
+Service healthy. Not the issue.
+
+**Step 2 — Check if Jenkins is listening on correct address**
+```bash
+ss -tlnp | grep 8080
+```
+```
+LISTEN 0  50  *:8080  *:*
+```
+Listening on all interfaces. Not the issue.
+
+**Step 3 — Check firewall**
+```bash
+firewall-cmd --list-all
+```
+```
+ports:        ← empty
+services: cockpit dhcpv6-client http https ssh
+```
+**Root Cause:** Port 8080 not open in firewalld — traffic being dropped.
+
+### Resolution
+```bash
+firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --reload
+firewall-cmd --list-ports  # verify: 8080/tcp
+```
+Jenkins became accessible immediately. ✅
+
+### Key Learnings
+- `ERR_CONNECTION_TIMED_OUT` = firewall/network dropping packets (app never sees request)
+- `ERR_CONNECTION_REFUSED` = app not listening on that port
+- Troubleshoot order: **service status → port binding → firewall**
+- `firewall-cmd --list-all` mein `ports:` empty hona = red flag
