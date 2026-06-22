@@ -317,3 +317,5 @@ Now you can see x in all three groups — owner, group, others can all execute i
 - ./backup.sh
 - Backing up files...
 - Backup complete!
+
+Scenario 4: File Permissions Issue
